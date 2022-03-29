@@ -26,7 +26,6 @@ public class testNgAnnotations {
 	  System.out.println("title:"+title);
   }
   
- 
   
   @Test(priority=2)
   public void SearchForSamsunGMobiles() {
