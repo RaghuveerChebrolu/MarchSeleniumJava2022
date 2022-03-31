@@ -3,7 +3,7 @@ package com.java;
 public class variables {
 	
 	int i=10; //instance vairable
-	static int j=15; //static or class variable
+	static int j=10; //static or class variable
 	
 	public int Add(int a , int b) {
 		//a,b,sum are local variables.
