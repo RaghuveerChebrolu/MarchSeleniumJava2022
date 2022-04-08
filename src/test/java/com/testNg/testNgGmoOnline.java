@@ -7,6 +7,9 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
+
+import java.util.concurrent.TimeUnit;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -32,9 +35,35 @@ public class testNgGmoOnline {
   public void EnterGmoOnline() {
 	  System.out.println("inside EnterGmoOnline");
 	  driver.findElement(By.name("bSubmit")).click();
-	  driver.findElement(By.xpath("//input[@name='QTY_BACKPACKS']")).sendKeys("4");
+	  driver.findElement(By.xpath("//input[@name='QTY_BACKPACKS']")).sendKeys("5");
+	  driver.findElement(By.name("bSubmit")).click();
+	  String title = driver.findElement(By.xpath("//h1[contains(text(),'Place')]")).getText();
+	  System.out.println("title:"+title);
+	  Assert.assertEquals(title, "Place Order");
+	  
   }
  
+  
+  @Test(priority=3)
+  public void PriceCalculation() {
+	  System.out.println("inside PriceCalculation");
+	 String UnitPrice =  driver.findElement(By.xpath("//table[@border='1']/tbody/tr[2]/td[4]")).getText();
+	 System.out.println("UnitPrice: "+UnitPrice);
+	 String UnitPriceExtactedValue = UnitPrice.substring(2).trim();
+	 System.out.println("UnitPriceExtactedValue: "+UnitPriceExtactedValue);
+	 Float UnitPrice_FLoatCalculation = Float.parseFloat(UnitPriceExtactedValue)*5;
+	 System.out.println("UnitPrice_FLoatCalculation "+UnitPrice_FLoatCalculation);
+	 
+	 String TotalPriceFromWebPage = driver.findElement(By.xpath("//table[@border='1']/tbody/tr[2]/td[5]")).getText();
+	 System.out.println("TotalPriceFromWebPage: "+TotalPriceFromWebPage);
+	 String TotalPriceFromWebPageWithout$ =TotalPriceFromWebPage.substring(2).trim();
+	 Float TotalPriceInFloatFromWebPage = Float.parseFloat(TotalPriceFromWebPageWithout$);
+	 System.out.println("TotalPriceInFloatFromWebPage:"+TotalPriceInFloatFromWebPage);
+	 
+	 Assert.assertEquals(UnitPrice_FLoatCalculation, TotalPriceInFloatFromWebPage);
+	
+  }
+  
   @BeforeMethod
   public void beforeMethod() {
 	  System.out.println("inside beforeMethod");
@@ -73,6 +102,9 @@ public class testNgGmoOnline {
 	  driver = new ChromeDriver();
 	  driver.get("http://demo.borland.com/gmopost/");
 	  driver.manage().window().maximize();
+	  //Implicit Wait : It is a global waiting mechanism which is applicable for all web Elements 
+	  //for a maximum of specified time durations
+	  driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 	 
   }
 
