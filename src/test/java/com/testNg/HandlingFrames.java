@@ -3,6 +3,8 @@ package com.testNg;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
+import com.Utility.ObjectRepository;
+import com.Utility.constants;
 import com.Utility.library_CommonBusinessFunctions;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
@@ -38,15 +40,17 @@ public class HandlingFrames extends library_CommonBusinessFunctions{
 		driver.navigate().to(objProp.getProperty("FramesURL"));
 		driver.manage().timeouts().pageLoadTimeout(60, TimeUnit.SECONDS);
 		driver.switchTo().frame("singleframe");
-		driver.findElement(By.xpath("//input[@type='text']")).sendKeys("Hi How ar you doing?");
+		//driver.findElement(By.xpath("//input[@type='text']")).sendKeys("Hi How ar you doing?");
+		library_CommonBusinessFunctions.FindElement(ObjectRepository.textBoxFrame).sendKeys(constants.TextInsideFrame);
 		driver.switchTo().defaultContent(); //to come out of iframe, i.e coming out of inner html document
-		driver.findElement(By.xpath("//*[text()='Iframe with in an Iframe']")).click();
-		
-		WebElement frameElementOuterFrame = driver.findElement(By.xpath("//iframe[@src='MultipleFrames.html']"));
+		//driver.findElement(By.xpath("//*[text()='Iframe with in an Iframe']")).click();
+		library_CommonBusinessFunctions.FindElement(ObjectRepository.FrameWithInframeButton).click();
+		//WebElement frameElementOuterFrame = driver.findElement(By.xpath("//iframe[@src='MultipleFrames.html']"));
+		WebElement frameElementOuterFrame = library_CommonBusinessFunctions.FindElement(ObjectRepository.MultipleFrames);
 		driver.switchTo().frame(frameElementOuterFrame);
-		WebElement frameElementInnerFrame = driver.findElement(By.xpath("//iframe[@src='SingleFrame.html']"));
+		WebElement frameElementInnerFrame = library_CommonBusinessFunctions.FindElement(ObjectRepository.SingleFrame);
 		driver.switchTo().frame(frameElementInnerFrame);
-		driver.findElement(By.xpath("//input[@type='text']")).sendKeys(objProp.getProperty("framewithInFrame"));
+		library_CommonBusinessFunctions.FindElement(ObjectRepository.textBoxFrame).sendKeys(constants.framewithInFrame);
 		driver.switchTo().defaultContent();
 		
 	}
