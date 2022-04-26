@@ -11,6 +11,10 @@ public class ObjectRepository {
 	public static final String AboutMeInNewbrowserWindow = constants.xpath+"&"+"(//a[text()='About Me'])[1]";
 	public static final String TechTalkInsideNewbrowserWindow = constants.xpath+"&"+"(//a[text()='TechTalk'])[1]";
 	
+	public static final String MouseOpearationRightcClick = constants.xpath+"&"+"//span[text()='right click me']";
+	public static final String MouseOpearationPasteOption = constants.xpath+"&"+"//span[text()='Paste']";
+	
+	public static final String MouseOperationDoubleClickFrame = constants.xpath+"&"+"//iframe";
 	
 	
 	
