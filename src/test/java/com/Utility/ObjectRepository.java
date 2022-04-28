@@ -14,7 +14,13 @@ public class ObjectRepository {
 	public static final String MouseOpearationRightcClick = constants.xpath+"&"+"//span[text()='right click me']";
 	public static final String MouseOpearationPasteOption = constants.xpath+"&"+"//span[text()='Paste']";
 	
-	public static final String MouseOperationDoubleClickFrame = constants.xpath+"&"+"//iframe";
+	public static final String MouseOperationFrame = constants.xpath+"&"+"//iframe";
+	public static final String MouseOperationDoubleClickBox = constants.xpath+"&"+"//span[text()='Double click the block']/preceding-sibling::div";
+	
+	public static final String MouseOperationDrag = constants.ID+"&"+"draggable";
+	public static final String MouseOperationDrop = constants.ID+"&"+"droppable";
+	
+	
 	
 	
 	
