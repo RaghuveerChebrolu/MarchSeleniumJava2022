@@ -20,6 +20,10 @@ public class ObjectRepository {
 	public static final String MouseOperationDrag = constants.ID+"&"+"draggable";
 	public static final String MouseOperationDrop = constants.ID+"&"+"droppable";
 	
+	public static final String WebTableLastNames = constants.xpath+"&"+"//table[@id='example']/tbody/tr/td[3]";
+	
+	
+	
 	
 	
 	
