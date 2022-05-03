@@ -51,7 +51,7 @@ public class library_CommonBusinessFunctions {
 			WebDriverManager.edgedriver().setup();
 			driver = new EdgeDriver();
 			break;
-		case "chrome":
+		case "Chrome":
 			WebDriverManager.chromedriver().setup();
 			driver = new ChromeDriver();
 			break;
