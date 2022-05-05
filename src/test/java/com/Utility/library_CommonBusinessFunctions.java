@@ -2,18 +2,24 @@ package com.Utility;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.safari.SafariDriver;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 
@@ -53,7 +59,16 @@ public class library_CommonBusinessFunctions {
 			break;
 		case "Chrome":
 			WebDriverManager.chromedriver().setup();
-			driver = new ChromeDriver();
+			//driver = new ChromeDriver();
+			ChromeOptions objChromeOptions = new ChromeOptions();
+			objChromeOptions.setAcceptInsecureCerts(true);
+			// driver= new ChromeDriver(objChromeOptions);
+			Map<String, Object> chromePrefs = new HashMap<String, Object>();
+			chromePrefs.put("profile.default_content_settings.popups", 0);
+			chromePrefs.put("download.prompt_for_download", false);
+			chromePrefs.put("download.default_directory", System.getProperty("user.dir"));
+			objChromeOptions.setExperimentalOption("prefs", chromePrefs);
+			driver = new ChromeDriver(objChromeOptions);
 			break;
 		case "Safari":
 			WebDriverManager.safaridriver().setup();
@@ -122,6 +137,17 @@ public class library_CommonBusinessFunctions {
 			search = By.linkText(value);
 		}
 		return driver.findElements(search);
+	}
+	
+	public static void waitForPageToLoad() {
+		ExpectedCondition<Boolean> pageLoadCondition = new ExpectedCondition<Boolean>() {
+			public Boolean apply(WebDriver driver) {
+				return ((JavascriptExecutor) driver).executeScript("return document.readyState").equals("complete");
+			}
+		};
+		// explicit wait -> Applicable for one webEllement
+		WebDriverWait wait = new WebDriverWait(driver, 60);// 60 seconds
+		wait.until(pageLoadCondition);
 	}
 
 }

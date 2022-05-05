@@ -24,7 +24,7 @@ public class ObjectRepository {
 	
 	public static final String FileUploadBrowseButton = constants.xpath+"&"+"//input[@id='input-4']/preceding-sibling::span";
 	public static final String FileUploadRemoveButton = constants.xpath+"&"+"//span[text()='Remove']";
-	
+	public static final String FileDownload500KBFile = constants.xpath+"&"+"//table/tbody/tr[2]/td[5]/a";
 	
 	
 	
