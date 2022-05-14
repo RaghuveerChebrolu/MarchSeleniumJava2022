@@ -6,7 +6,7 @@ import org.testng.asserts.SoftAssert;
 import com.Utility.ObjectRepository;
 import com.Utility.constants;
 import com.Utility.library_CommonBusinessFunctions;
-
+import com.aventstack.extentreports.Status;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 
@@ -32,6 +32,7 @@ import org.openqa.selenium.support.Color;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+import org.testng.ITestResult;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.AfterTest;
@@ -42,6 +43,7 @@ public class MouseOperations extends library_CommonBusinessFunctions{
 	@Test(priority = 1)
 	public void MouseOperationsRightClick() {
 		System.out.println("MouseOperationsRightClick");
+		Extent_Test = Extent_Reports.createTest(new Object() {}.getClass().getEnclosingMethod().getName());
 		driver.navigate().to(objProp.getProperty("mouseOpeartionRightClick"));
 		driver.manage().timeouts().pageLoadTimeout(60, TimeUnit.SECONDS);
 		WebElement Rightclick = library_CommonBusinessFunctions.FindElement(ObjectRepository.MouseOpearationRightcClick);
@@ -61,6 +63,7 @@ public class MouseOperations extends library_CommonBusinessFunctions{
 	@Test(priority = 2)
 	public void MouseOperationsDoubleClick() throws InterruptedException {
 		System.out.println("MouseOperationsDoubleClick");
+		Extent_Test = Extent_Reports.createTest(new Object() {}.getClass().getEnclosingMethod().getName());
 		driver.navigate().to(objProp.getProperty("mouseOpeartionDoubleClick"));
 		driver.manage().timeouts().pageLoadTimeout(60, TimeUnit.SECONDS);
 		JavascriptExecutor js = (JavascriptExecutor)driver;
@@ -97,6 +100,7 @@ public class MouseOperations extends library_CommonBusinessFunctions{
 	@Test(priority=3)
 	public void ValidateDragAndDrop() {
 		System.out.println("ValidateDragAndDrop");
+		Extent_Test = Extent_Reports.createTest(new Object() {}.getClass().getEnclosingMethod().getName());
 		driver.get(objProp.getProperty("mouseOperationDragAndDrop"));
 		driver.manage().timeouts().pageLoadTimeout(60, TimeUnit.SECONDS);
 		JavascriptExecutor js = (JavascriptExecutor) driver;
@@ -132,13 +136,29 @@ public class MouseOperations extends library_CommonBusinessFunctions{
 	}
 
 	@AfterMethod
-	public void afterMethod() {
+	public void afterMethod(ITestResult Result) throws IOException {
 		System.out.println("inside afterMethod");
+		if(Result.getStatus()==ITestResult.FAILURE) {
+			Extent_Test.log(Status.FAIL, "TEST CASE FAILED IS " + Result.getName()); // to add name in extent report
+			Extent_Test.log(Status.FAIL, "TEST CASE FAILED IS " + Result.getThrowable()); // to add error/exception in extent report
+			String screenshotPath = library_CommonBusinessFunctions.getScreenshot(driver, Result.getName());
+			Extent_Test.addScreenCaptureFromPath(screenshotPath);// adding screen shot to extent report.
+		}else if(Result.getStatus()==ITestResult.SUCCESS){
+			Extent_Test.log(Status.PASS, "TEST CASE PASSED Is " + Result.getName()); 
+			String screenshotPath = library_CommonBusinessFunctions.getScreenshot(driver, Result.getName());
+			Extent_Test.addScreenCaptureFromPath(screenshotPath);// adding screen shot to extent report.
+		}else if (Result.getStatus()==ITestResult.SKIP){
+			Extent_Test.log(Status.SKIP, "TEST CASE SKIPPED IS " + Result.getName()); 
+			Extent_Test.log(Status.SKIP, "TEST CASE SKIPPED IS " + Result.getThrowable()); 
+			String screenshotPath = library_CommonBusinessFunctions.getScreenshot(driver, Result.getName());
+			Extent_Test.addScreenCaptureFromPath(screenshotPath);// adding screen shot to extent report.
+		}
 	}
 
 	@BeforeClass
 	public void beforeClass() {
 		System.out.println("inside beforeClass");
+		StartExtentReport();
 	}
 
 	@AfterClass
@@ -155,6 +175,7 @@ public class MouseOperations extends library_CommonBusinessFunctions{
 	@AfterTest
 	public void afterTest() {
 		System.out.println("inside afterTest");
+		Extent_Reports.flush();
 	}
 
 	@BeforeSuite

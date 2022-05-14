@@ -2,14 +2,20 @@ package com.Utility;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
+import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -21,11 +27,29 @@ import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import com.aventstack.extentreports.ExtentReports;
+import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
+import com.aventstack.extentreports.reporter.configuration.Theme;
+
 import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class library_CommonBusinessFunctions {
 	public static Properties objProp = new Properties();
 	public static WebDriver driver;
+	public static ExtentHtmlReporter Extent_HtmlReporter;
+	public static ExtentReports Extent_Reports ;
+	public static ExtentTest Extent_Test ;
+	
+	/*
+	 * ExtentHtmlReporter : responsible for look and feel of the report ,we can
+	 * specify the report name , document title , theme of the report
+	 * 
+	 * ExtentReports : used to create entries in your report , create test cases in
+	 * report , who executed the test case, environment name , browser
+	 * 
+	 * ExtentTest : update pass fail and skips and logs the test cases results
+	 */
 
 	public void ReadProppertiesFile() {
 		// TODO Auto-generated method stub
@@ -149,5 +173,33 @@ public class library_CommonBusinessFunctions {
 		WebDriverWait wait = new WebDriverWait(driver, 60);// 60 seconds
 		wait.until(pageLoadCondition);
 	}
+	
+	public static void StartExtentReport() {
+		Extent_HtmlReporter = new ExtentHtmlReporter(System.getProperty("user.dir") + "/test-output/ExtentReportV4.html");
+		Extent_HtmlReporter.config().setDocumentTitle("Automation Report"); // Tile of report
+		Extent_HtmlReporter.config().setReportName("Functional Testing"); // Name of the report
+		Extent_HtmlReporter.config().setTheme(Theme.DARK);
+		
+		Extent_Reports = new ExtentReports();
+		Extent_Reports.attachReporter(Extent_HtmlReporter);
+
+		// Passing General information
+		Extent_Reports.setSystemInfo("Host name", "localhost");
+		Extent_Reports.setSystemInfo("Environemnt", "QA");
+		Extent_Reports.setSystemInfo("user", "Raghuveer");
+		Extent_Reports.setSystemInfo("broswer", objProp.getProperty("browser"));
+	}
+	
+	public static String getScreenshot(WebDriver driver, String screenshotName) throws IOException {
+		String dateName = new SimpleDateFormat("yyyyMMddhhmmss").format(new Date());
+		TakesScreenshot ts = (TakesScreenshot) driver;
+		File source = ts.getScreenshotAs(OutputType.FILE);
+
+		// after execution, you could see a folder "FailedTestsScreenshots" under src folder
+		String destination = System.getProperty("user.dir") + "/screenshots/" + screenshotName + dateName + ".png";
+		File finalDestination = new File(destination);
+		FileUtils.copyFile(source, finalDestination);
+		return destination;
+		}
 
 }
