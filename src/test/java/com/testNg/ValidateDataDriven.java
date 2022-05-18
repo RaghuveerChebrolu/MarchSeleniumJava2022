@@ -26,7 +26,10 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Properties;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -50,6 +53,7 @@ import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.AfterSuite;
 
 public class ValidateDataDriven extends library_CommonBusinessFunctions {
+	private Object object;
 	HashMap<String,String> Hmap=new HashMap<String,String>();//Creating HashMap 
 	@Test(priority = 1)
 	public void DataDrivenFromExcel() throws Exception {
@@ -69,10 +73,44 @@ public class ValidateDataDriven extends library_CommonBusinessFunctions {
 		//HSSFSheet objHSSFSheet = objHSSFWorkbook.getSheet("TestData");
 		
 		int Rows = objXSSFSheet.getLastRowNum();
-		for(int RowNumber =1 ; RowNumber<=Rows ; RowNumber++) {
-			Hmap = ReadExcelFile(objXSSFSheet,RowNumber);
+		for (int RowNumber = 1; RowNumber <= Rows; RowNumber++) {
+			Hmap = ReadExcelFile(objXSSFSheet, RowNumber);
 			
-			
+			if (Hmap.get("RunMode").equalsIgnoreCase("yes")) {
+				/*
+				 * System.out.println("------------------------------"); for (Map.Entry<String,
+				 * String> m : Hmap.entrySet()) { System.out.println(m.getKey() + " " +
+				 * m.getValue()); } System.out.println("------------------------------");
+				 */
+				library_CommonBusinessFunctions.FindElement(ObjectRepository.DataDrivenFirstName).clear();
+				library_CommonBusinessFunctions.FindElement(ObjectRepository.DataDrivenFirstName).sendKeys(Hmap.get("FirstName"));
+				library_CommonBusinessFunctions.FindElement(ObjectRepository.DataDrivenLastName).clear();
+				library_CommonBusinessFunctions.FindElement(ObjectRepository.DataDrivenLastName).sendKeys(Hmap.get("LastName"));
+				library_CommonBusinessFunctions.FindElement(ObjectRepository.DataDrivenAddress).clear();
+				library_CommonBusinessFunctions.FindElement(ObjectRepository.DataDrivenAddress).sendKeys(Hmap.get("Address"));
+				library_CommonBusinessFunctions.FindElement(ObjectRepository.DataDrivenEmailAddress).clear();
+				library_CommonBusinessFunctions.FindElement(ObjectRepository.DataDrivenEmailAddress).sendKeys(Hmap.get("EmailAddress"));
+				library_CommonBusinessFunctions.FindElement(ObjectRepository.DataDrivenPhone).clear();
+				library_CommonBusinessFunctions.FindElement(ObjectRepository.DataDrivenPhone).sendKeys(Hmap.get("PhoneNumber"));
+				
+				if(Hmap.get("Gender").equalsIgnoreCase("male")) {
+					library_CommonBusinessFunctions.FindElement(ObjectRepository.DataDrivenMale).click();
+				}else if(Hmap.get("Gender").equalsIgnoreCase("female")){
+					library_CommonBusinessFunctions.FindElement(ObjectRepository.DataDrivenFeMale).click();
+				}
+				
+
+				if(Hmap.get("Hobbies").equalsIgnoreCase("Movies")) {
+					library_CommonBusinessFunctions.FindElement(ObjectRepository.DataDrivenMovies).click();
+				}else if(Hmap.get("Hobbies").equalsIgnoreCase("Hockey")){
+					library_CommonBusinessFunctions.FindElement(ObjectRepository.DataDrivenHockey).click();
+				}else if(Hmap.get("Hobbies").equalsIgnoreCase("Cricket")){
+					library_CommonBusinessFunctions.FindElement(ObjectRepository.DataDrivenCricket).click();
+				}
+				
+				
+			}
+
 		}
 		
 	

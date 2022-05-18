@@ -26,6 +26,21 @@ public class ObjectRepository {
 	public static final String FileUploadRemoveButton = constants.xpath+"&"+"//span[text()='Remove']";
 	public static final String FileDownload500KBFile = constants.xpath+"&"+"//table/tbody/tr[2]/td[5]/a";
 	
+	public static final String DataDrivenFirstName = constants.xpath+"&"+"//input[@placeholder='First Name']";
+	public static final String DataDrivenLastName = constants.xpath+"&"+"//input[@placeholder='Last Name']";
+	public static final String DataDrivenAddress = constants.xpath+"&"+"//textarea[@ng-model='Adress']";
+	public static final String DataDrivenEmailAddress = constants.xpath+"&"+"//input[@ng-model='EmailAdress']";
+	public static final String DataDrivenPhone = constants.xpath+"&"+"//input[@ng-model='Phone']";
+	public static final String DataDrivenMale = constants.xpath+"&"+"//input[@value='Male']";
+	public static final String DataDrivenFeMale = constants.xpath+"&"+"//input[@value='FeMale']";
+	
+	public static final String DataDrivenCricket = constants.ID+"&"+"checkbox1";
+	public static final String DataDrivenMovies = constants.ID+"&"+"checkbox2";
+	public static final String DataDrivenHockey = constants.ID+"&"+"checkbox3";
+	
+	
+	
+	
 	
 	
 	

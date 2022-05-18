@@ -233,9 +233,7 @@ public class library_CommonBusinessFunctions {
 		
 		Hmap.put("Password",objXSSFSheet.getRow(rowNumber).getCell(16).getStringCellValue());
 		Hmap.put("confirmPassword",objXSSFSheet.getRow(rowNumber).getCell(17).getStringCellValue());
-		
-	
-		return null;
+		return Hmap;
 	}
 
 }
