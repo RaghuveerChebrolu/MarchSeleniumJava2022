@@ -108,7 +108,25 @@ public class ValidateDataDriven extends library_CommonBusinessFunctions {
 					library_CommonBusinessFunctions.FindElement(ObjectRepository.DataDrivenCricket).click();
 				}
 				
+				JavascriptExecutor js = (JavascriptExecutor)driver;
+				js.executeScript("window.scrollBy(0,500)");
 				
+				library_CommonBusinessFunctions.FindElement(ObjectRepository.DataDrivenLanguages).click();
+				List<WebElement> AllLanguages = library_CommonBusinessFunctions.FindElements(ObjectRepository.DataDrivenAllLanguages);
+				SelectValueFromDropDown(AllLanguages,Hmap.get("Languages"));
+				
+				library_CommonBusinessFunctions.FindElement(ObjectRepository.DataDrivenFieldSkills).click();
+				
+				library_CommonBusinessFunctions.FindElement(ObjectRepository.DataDrivenSkills).click();
+				List<WebElement> AllSkills = library_CommonBusinessFunctions.FindElements(ObjectRepository.DataDrivenAllSkills);
+				SelectValueFromDropDown(AllSkills,Hmap.get("Skills"));
+				
+				library_CommonBusinessFunctions.FindElement(ObjectRepository.DataDrivenSelectCountry).click();
+				library_CommonBusinessFunctions.FindElement(ObjectRepository.DataDrivenTextBoxSelectCountry).sendKeys(Hmap.get("SelectCountry"));
+				
+				Robot objRobot = new Robot();
+				objRobot.keyPress(KeyEvent.VK_ENTER);
+				objRobot.keyRelease(KeyEvent.VK_ENTER);
 			}
 
 		}
@@ -116,6 +134,9 @@ public class ValidateDataDriven extends library_CommonBusinessFunctions {
 	
 	}
 	
+
+
+
 
 
 

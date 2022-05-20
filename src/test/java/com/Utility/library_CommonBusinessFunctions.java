@@ -236,4 +236,16 @@ public class library_CommonBusinessFunctions {
 		return Hmap;
 	}
 
+
+	public static void SelectValueFromDropDown(List<WebElement> AllDropDownItems, String DropDownValue) {
+		// TODO Auto-generated method stub
+		int NumberOFDropDownItems = AllDropDownItems.size();
+		for (int i = 0; i < NumberOFDropDownItems; i++) {
+			String IndividualDropDownValue = AllDropDownItems.get(i).getText();
+			if (IndividualDropDownValue.equalsIgnoreCase(DropDownValue)) {
+				AllDropDownItems.get(i).click();
+				break;
+			}
+		}
+	}
 }

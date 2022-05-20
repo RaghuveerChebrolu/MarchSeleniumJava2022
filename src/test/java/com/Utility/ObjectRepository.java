@@ -38,6 +38,19 @@ public class ObjectRepository {
 	public static final String DataDrivenMovies = constants.ID+"&"+"checkbox2";
 	public static final String DataDrivenHockey = constants.ID+"&"+"checkbox3";
 	
+	public static final String DataDrivenLanguages = constants.ID+"&"+"msdd";
+	public static final String DataDrivenAllLanguages = constants.xpath+"&"+"//div[@id='msdd']/following-sibling::div/ul/li";
+	public static final String DataDrivenFieldSkills = constants.xpath+"&"+"//*[text()='Skills']";
+	public static final String DataDrivenSkills = constants.xpath+"&"+"//select[@id='Skills']";
+	public static final String DataDrivenAllSkills = constants.xpath+"&"+"//select[@id='Skills']/option";
+	public static final String DataDrivenSelectCountry = constants.xpath+"&"+"//span[@role='combobox']";
+	public static final String DataDrivenTextBoxSelectCountry = constants.xpath+"&"+"//input[@type='search']";
+	
+	
+	
+	
+	
+	
 	
 	
 	
