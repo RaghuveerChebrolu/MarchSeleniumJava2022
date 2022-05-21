@@ -23,6 +23,8 @@ import java.awt.datatransfer.UnsupportedFlavorException;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
@@ -56,7 +58,7 @@ public class ValidateDataDriven extends library_CommonBusinessFunctions {
 	private Object object;
 	HashMap<String,String> Hmap=new HashMap<String,String>();//Creating HashMap 
 	@Test(priority = 1)
-	public void DataDrivenFromExcel() throws Exception {
+	public void DataDrivenFromExcel() throws Exception  {
 		System.out.println("inside DataDrivenFromExcel");
 		
 		driver.navigate().to(objProp.getProperty("AutomationRegister"));
@@ -64,6 +66,7 @@ public class ValidateDataDriven extends library_CommonBusinessFunctions {
 		waitForPageToLoad();
 		File ObjFile = new File (System.getProperty("user.dir")+"//src//test//resources//AutomationDemoSIte.xlsx");
 		//Taking File for Reading purpose
+		try {
 		FileInputStream objFileInput = new FileInputStream(ObjFile);
 		//Use below 2 classes XSSFWorkbook and XSSFSheet if excel file extension is .xlsx 
 		XSSFWorkbook objXSSSFWorkbook = new XSSFWorkbook(objFileInput);
@@ -111,6 +114,10 @@ public class ValidateDataDriven extends library_CommonBusinessFunctions {
 				JavascriptExecutor js = (JavascriptExecutor)driver;
 				js.executeScript("window.scrollBy(0,500)");
 				
+				if(RowNumber>1) {
+					library_CommonBusinessFunctions.FindElement(ObjectRepository.DataDrivenCloseIconOfLanguages).click();
+				}
+				
 				library_CommonBusinessFunctions.FindElement(ObjectRepository.DataDrivenLanguages).click();
 				List<WebElement> AllLanguages = library_CommonBusinessFunctions.FindElements(ObjectRepository.DataDrivenAllLanguages);
 				SelectValueFromDropDown(AllLanguages,Hmap.get("Languages"));
@@ -127,13 +134,47 @@ public class ValidateDataDriven extends library_CommonBusinessFunctions {
 				Robot objRobot = new Robot();
 				objRobot.keyPress(KeyEvent.VK_ENTER);
 				objRobot.keyRelease(KeyEvent.VK_ENTER);
+				
+				
+				library_CommonBusinessFunctions.FindElement(ObjectRepository.DataDrivenDOB_Year).click();
+				List<WebElement> AllYears = library_CommonBusinessFunctions.FindElements(ObjectRepository.DataDrivenDOB_ALLYears);
+				SelectValueFromDropDown(AllYears,Hmap.get("DOB_YY"));
+				
+				library_CommonBusinessFunctions.FindElement(ObjectRepository.DataDrivenDOB_Month).click();
+				List<WebElement> AllMonths = library_CommonBusinessFunctions.FindElements(ObjectRepository.DataDrivenDOB_ALLMonths);
+				SelectValueFromDropDown(AllMonths,Hmap.get("DOB_MM"));
+				
+				library_CommonBusinessFunctions.FindElement(ObjectRepository.DataDrivenDOB_Day).click();
+				List<WebElement> AllDays = library_CommonBusinessFunctions.FindElements(ObjectRepository.DataDrivenDOB_ALLDays);
+				SelectValueFromDropDown(AllDays,Hmap.get("DOB_DD"));
+				
+				library_CommonBusinessFunctions.FindElement(ObjectRepository.DataDrivenPWD).sendKeys(Hmap.get("Password"));
+				library_CommonBusinessFunctions.FindElement(ObjectRepository.DataDrivenConformPWD).sendKeys(Hmap.get("confirmPassword"));
+			
+				FileOutputStream objFileOuptStream =new FileOutputStream(ObjFile);
+				WriteIntoExcelFile(objXSSSFWorkbook,objXSSFSheet,RowNumber);
+				objXSSSFWorkbook.write(objFileOuptStream);
+			}else {
+				System.out.println("Run Mode is not marked as yes for Row number: " + RowNumber);
 			}
 
 		}
-		
-	
+		objXSSSFWorkbook.close();
+		objFileInput.close();
+	} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
+
+
+
+
+
+
+
+
 
 
 

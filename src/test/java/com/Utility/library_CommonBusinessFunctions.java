@@ -13,6 +13,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.poi.ss.usermodel.DataFormatter;
+import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.openqa.selenium.By;
@@ -234,6 +235,12 @@ public class library_CommonBusinessFunctions {
 		Hmap.put("Password",objXSSFSheet.getRow(rowNumber).getCell(16).getStringCellValue());
 		Hmap.put("confirmPassword",objXSSFSheet.getRow(rowNumber).getCell(17).getStringCellValue());
 		return Hmap;
+	}
+	
+	public static void WriteIntoExcelFile(XSSFWorkbook objXSSSFWorkbook, XSSFSheet objXSSFSheet, int rowNumber) {
+		XSSFCellStyle CellStyle = objXSSSFWorkbook.createCellStyle();
+		objXSSFSheet.getRow(rowNumber).createCell(18).setCellValue("Pass");
+		objXSSFSheet.getRow(rowNumber).createCell(18).setCellStyle(CellStyle);
 	}
 
 

@@ -37,7 +37,7 @@ public class ObjectRepository {
 	public static final String DataDrivenCricket = constants.ID+"&"+"checkbox1";
 	public static final String DataDrivenMovies = constants.ID+"&"+"checkbox2";
 	public static final String DataDrivenHockey = constants.ID+"&"+"checkbox3";
-	
+	public static final String DataDrivenCloseIconOfLanguages = constants.xpath+"&"+"//span[@class='ui-icon ui-icon-close']";
 	public static final String DataDrivenLanguages = constants.ID+"&"+"msdd";
 	public static final String DataDrivenAllLanguages = constants.xpath+"&"+"//div[@id='msdd']/following-sibling::div/ul/li";
 	public static final String DataDrivenFieldSkills = constants.xpath+"&"+"//*[text()='Skills']";
@@ -45,6 +45,14 @@ public class ObjectRepository {
 	public static final String DataDrivenAllSkills = constants.xpath+"&"+"//select[@id='Skills']/option";
 	public static final String DataDrivenSelectCountry = constants.xpath+"&"+"//span[@role='combobox']";
 	public static final String DataDrivenTextBoxSelectCountry = constants.xpath+"&"+"//input[@type='search']";
+	public static final String DataDrivenDOB_Year= constants.ID+"&"+"yearbox";
+	public static final String DataDrivenDOB_ALLYears= constants.xpath+"&"+"//select[@id='yearbox']/option";
+	public static final String DataDrivenDOB_Month= constants.xpath+"&"+"//select[@placeholder='Month']";
+	public static final String DataDrivenDOB_ALLMonths = constants.xpath+"&"+"//select[@placeholder='Month']/option";
+	public static final String DataDrivenDOB_Day = constants.xpath+"&"+"//select[@id='daybox']";
+	public static final String DataDrivenDOB_ALLDays = constants.xpath+"&"+"//select[@id='daybox']/option";
+	public static final String DataDrivenPWD = constants.ID+"&"+"firstpassword";
+	public static final String DataDrivenConformPWD = constants.ID+"&"+"secondpassword";
 	
 	
 	
