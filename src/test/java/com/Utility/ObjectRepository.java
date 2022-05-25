@@ -55,6 +55,9 @@ public class ObjectRepository {
 	public static final String DataDrivenConformPWD = constants.ID+"&"+"secondpassword";
 	
 	
+	public static final String Links = constants.tagName+"&"+"a";
+	
+	
 	
 	
 	

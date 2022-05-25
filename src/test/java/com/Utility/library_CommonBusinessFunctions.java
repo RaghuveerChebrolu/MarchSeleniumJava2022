@@ -3,6 +3,9 @@ package com.Utility;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -255,4 +258,23 @@ public class library_CommonBusinessFunctions {
 			}
 		}
 	}
+	
+	public void ValidatingLinks(String individualUrl) throws IOException {
+		// TODO Auto-generated method stub
+		try {
+			URL objURL = new URL(individualUrl);
+			HttpURLConnection objHttpURLConnection = (HttpURLConnection)objURL.openConnection();
+			objHttpURLConnection.connect();
+			int ResponseCode = objHttpURLConnection.getResponseCode();
+			if(ResponseCode>=200 && ResponseCode <=399) {
+				System.out.println(individualUrl +"is a vliad Link with Response Code "+ResponseCode);
+			}else if(ResponseCode>=400 && ResponseCode <=599) {
+				System.out.println(individualUrl +"is a InVliad Link with Response Code "+ResponseCode);
+			}
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 }
