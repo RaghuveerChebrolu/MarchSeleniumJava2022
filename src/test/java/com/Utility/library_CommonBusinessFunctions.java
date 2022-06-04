@@ -59,7 +59,7 @@ public class library_CommonBusinessFunctions {
 	 * ExtentTest : update pass fail and skips and logs the test cases results
 	 */
 
-	public void ReadProppertiesFile() {
+	public static void ReadProppertiesFile() {
 		// TODO Auto-generated method stub
 		try {
 			File obj = new File(System.getProperty("user.dir") + "//src//test//resources//Configiration.Properties");
@@ -115,6 +115,34 @@ public class library_CommonBusinessFunctions {
 		// web Elements
 		// for a maximum of specified time durations
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+	}
+	
+	
+	public static WebElement FindElementUsingHeadLess(WebDriver unitDriver, String OrepLocator) {
+		By search = null;
+		System.out.println(OrepLocator);
+		String locator = OrepLocator.split("&")[0];
+		String value = OrepLocator.split("&")[1];
+		System.out.println(locator);
+		System.out.println(value);
+		if (locator.equals("name")) {
+			search = By.name(value);
+		} else if (locator.equals("id")) {
+			search = By.id(value);
+		} else if (locator.equals("xpath")) {
+			search = By.xpath(value);
+		} else if (locator.equals("tagName")) {
+			search = By.tagName(value);
+		} else if (locator.equals("className")) {
+			search = By.className(value);
+		} else if (locator.equals("partialLinkText")) {
+			search = By.partialLinkText(value);
+		} else if (locator.equals("cssSelector")) {
+			search = By.cssSelector(value);
+		} else if (locator.equals("linkText")) {
+			search = By.linkText(value);
+		}
+		return unitDriver.findElement(search);
 	}
 	
 	public static WebElement FindElement(String OrepLocator) {

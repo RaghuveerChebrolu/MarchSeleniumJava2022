@@ -1,7 +1,10 @@
 package com.Utility;
 
+import com.Utility.constants;
+
 public class ObjectRepository {
 
+	public static final String GMO_OnlineCatalog= constants.xpath + "&"+"//h1[text()='OnLine Catalog']";
 	public static final String textBoxFrame = constants.xpath+"&"+"//input[@type='text']";
 	public static final String FrameWithInframeButton = constants.xpath+"&"+"//*[text()='Iframe with in an Iframe']";
 	public static final String MultipleFrames = constants.xpath+"&"+"//iframe[@src='MultipleFrames.html']";
