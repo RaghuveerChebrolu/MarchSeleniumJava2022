@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite thread-count="2" parallel="tests" name="Suite">
+<parameter name="BrowserName" value="chrome"></parameter>
+
+	<test name="Test123">
+	<parameter name="test-name" value="abc"></parameter>
+		<classes>
+			<class name="com.testNg.testNGParallelTestSuite" />
+		</classes>
+	</test> <!-- Test -->
+	
+	<test name="Test456">
+	<parameter name="BrowserName" value="firefox"></parameter>
+	<parameter name="UserName" value="user1"></parameter>
+	<parameter name="Passcode" value="password1"></parameter>
+		<classes>
+			<class name="com.testNg.TestngParamters" />
+		</classes>
+	</test> <!-- Test -->
+	
+</suite> <!-- Suite -->
